@@ -6,6 +6,7 @@ import { CopyEmailButton } from "@/components/copy-email-button"
 import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import { useEffect, type ReactNode } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
+import { ProgressiveImage } from "@/components/progressive-image"
 
 function displayUrl(url: string) {
   return url.replace(/^https?:\/\//, '').replace(/\/$/, '')
@@ -83,13 +84,12 @@ function ProductGallery({ product }: { product: ProductData }) {
   return (
     <div className="grid gap-4">
       {images.map((image, imageIndex) => (
-        <div className="border border-border/80" key={`${image}-${imageIndex}`}>
-          <img
-            className="block h-auto w-full rounded-none"
-            src={image}
-            alt={`${product.name} screen ${imageIndex + 1}`}
-          />
-        </div>
+        <ProgressiveImage
+          key={`${image}-${imageIndex}`}
+          src={image}
+          alt={`${product.name} screen ${imageIndex + 1}`}
+          priority={imageIndex === 0}
+        />
       ))}
     </div>
   )
@@ -239,13 +239,12 @@ export default function Product() {
       showcase={
         <div className="grid gap-4">
           {[product.image, ...(product.gallery ?? [])].map((image, imageIndex) => (
-            <div className="border border-border/80" key={`${image}-${imageIndex}`}>
-              <img
-                className="block h-auto w-full rounded-none"
-                src={image}
-                alt={`${product.name} screen ${imageIndex + 1}`}
-              />
-            </div>
+            <ProgressiveImage
+              key={`${image}-${imageIndex}`}
+              src={image}
+              alt={`${product.name} screen ${imageIndex + 1}`}
+              priority={imageIndex === 0}
+            />
           ))}
         </div>
       }

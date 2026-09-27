@@ -3,12 +3,16 @@ import { cn } from "@/lib/utils"
 import { ArrowUpRight } from "lucide-react"
 import { Link } from "react-router-dom"
 
+import { ProgressiveImage } from "@/components/progressive-image"
+
 export function ProductCard({
   product,
   className,
+  priority = false,
 }: {
   product: Product
   className?: string
+  priority?: boolean
 }) {
   return (
     <div
@@ -18,13 +22,12 @@ export function ProductCard({
       )}
     >
       {/* Phones crop into the top-left of the screenshot so the UI stays readable */}
-      <div className="block aspect-[4/3] overflow-hidden sm:aspect-auto">
-        <img
-          className="block h-auto w-[200%] max-w-none origin-top-left -translate-x-[4%] -translate-y-[3%] rounded-none sm:w-full sm:translate-x-0 sm:translate-y-0"
-          src={product.image}
-          alt=""
-        />
-      </div>
+      <ProgressiveImage
+        src={product.image}
+        alt={product.name}
+        priority={priority}
+        className="h-auto w-[200%] max-w-none origin-top-left -translate-x-[4%] -translate-y-[3%] sm:h-full sm:w-full sm:object-cover sm:translate-x-0 sm:translate-y-0"
+      />
 
       {/* Mobile: just name on left and open button on right */}
       <div className="flex items-center justify-between gap-3 border-t border-border/80 bg-white/[0.03] px-4 py-3 sm:hidden">
@@ -77,6 +80,7 @@ export function ProductGrid({
         <ProductCard
           key={product.slug}
           product={product}
+          priority={idx === 0}
           className={cn(
             maxMobileItems !== undefined && idx >= maxMobileItems && "hidden md:block"
           )}

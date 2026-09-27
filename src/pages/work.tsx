@@ -1,5 +1,6 @@
 import { Footer } from "@/components/footer"
 import { products } from "@/data/products"
+import { ProgressiveImage } from "@/components/progressive-image"
 import { cn } from "@/lib/utils"
 import { ArrowLeft, ArrowUpRight, Check, ChevronDown } from "lucide-react"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -137,13 +138,11 @@ export default function Work() {
               className="group relative flex flex-col justify-between overflow-hidden border border-border/80 bg-card"
             >
               {/* Card Screenshot Preview */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-border/80 bg-black/40">
-                <img
-                  className="h-full w-full object-cover object-center"
-                  src={product.image}
-                  alt=""
-                />
-              </div>
+              <ProgressiveImage
+                src={product.image}
+                alt={product.name}
+                containerClassName="aspect-[16/10] border-b border-border/80"
+              />
 
               {/* Card Bottom Area */}
               <div className="flex items-center justify-between gap-3 bg-white/[0.03] px-4 py-3">
